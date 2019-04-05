@@ -38,22 +38,22 @@
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageImage = new System.Windows.Forms.TabPage();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.lblRestart = new System.Windows.Forms.LinkLabel();
+            this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.tabPageGIF = new System.Windows.Forms.TabPage();
+            this.pictureBoxGif = new System.Windows.Forms.PictureBox();
+            this.lblRestartGif = new System.Windows.Forms.LinkLabel();
+            this.webBrowserGif = new System.Windows.Forms.WebBrowser();
             this.cmbAlignGif = new System.Windows.Forms.ComboBox();
             this.lblHelpGif = new System.Windows.Forms.LinkLabel();
             this.btnConvertGif = new System.Windows.Forms.Button();
             this.lblGifLocation = new System.Windows.Forms.Label();
             this.btnOpenGif = new System.Windows.Forms.Button();
-            this.webBrowser = new System.Windows.Forms.WebBrowser();
-            this.webBrowserGif = new System.Windows.Forms.WebBrowser();
-            this.lblRestartGif = new System.Windows.Forms.LinkLabel();
-            this.lblRestart = new System.Windows.Forms.LinkLabel();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.pictureBoxGif = new System.Windows.Forms.PictureBox();
             this.tabControl.SuspendLayout();
             this.tabPageImage.SuspendLayout();
-            this.tabPageGIF.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            this.tabPageGIF.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGif)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,7 +80,7 @@
             this.cmbAlign.Items.AddRange(new object[] {
             "Horizontal Line",
             "Vertical Line",
-            "(N/A)Rectangular Horizontal",
+            "Rectangular Horizontal",
             "(N/A)Rectangualr Vertical"});
             this.cmbAlign.Location = new System.Drawing.Point(2, 93);
             this.cmbAlign.Margin = new System.Windows.Forms.Padding(2);
@@ -175,6 +175,41 @@
             this.tabPageImage.Text = "Convert from images";
             this.tabPageImage.UseVisualStyleBackColor = true;
             // 
+            // pictureBox
+            // 
+            this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox.Image = global::SpritePacker.Resource.help;
+            this.pictureBox.Location = new System.Drawing.Point(2, 136);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(118, 120);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox.TabIndex = 13;
+            this.pictureBox.TabStop = false;
+            // 
+            // lblRestart
+            // 
+            this.lblRestart.AutoSize = true;
+            this.lblRestart.Location = new System.Drawing.Point(135, 143);
+            this.lblRestart.Margin = new System.Windows.Forms.Padding(10);
+            this.lblRestart.Name = "lblRestart";
+            this.lblRestart.Size = new System.Drawing.Size(40, 13);
+            this.lblRestart.TabIndex = 12;
+            this.lblRestart.TabStop = true;
+            this.lblRestart.Text = "Replay";
+            this.lblRestart.Click += new System.EventHandler(this.lblRestart_Click);
+            // 
+            // webBrowser
+            // 
+            this.webBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowser.Location = new System.Drawing.Point(126, 120);
+            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser.Name = "webBrowser";
+            this.webBrowser.Size = new System.Drawing.Size(201, 183);
+            this.webBrowser.TabIndex = 8;
+            // 
             // tabPageGIF
             // 
             this.tabPageGIF.Controls.Add(this.pictureBoxGif);
@@ -188,10 +223,43 @@
             this.tabPageGIF.Location = new System.Drawing.Point(4, 22);
             this.tabPageGIF.Name = "tabPageGIF";
             this.tabPageGIF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGIF.Size = new System.Drawing.Size(329, 261);
+            this.tabPageGIF.Size = new System.Drawing.Size(329, 306);
             this.tabPageGIF.TabIndex = 1;
             this.tabPageGIF.Text = "Convert from GIF";
             this.tabPageGIF.UseVisualStyleBackColor = true;
+            // 
+            // pictureBoxGif
+            // 
+            this.pictureBoxGif.Location = new System.Drawing.Point(2, 111);
+            this.pictureBoxGif.Name = "pictureBoxGif";
+            this.pictureBoxGif.Size = new System.Drawing.Size(120, 103);
+            this.pictureBoxGif.TabIndex = 14;
+            this.pictureBoxGif.TabStop = false;
+            // 
+            // lblRestartGif
+            // 
+            this.lblRestartGif.AutoSize = true;
+            this.lblRestartGif.LinkColor = System.Drawing.Color.Blue;
+            this.lblRestartGif.Location = new System.Drawing.Point(134, 80);
+            this.lblRestartGif.Margin = new System.Windows.Forms.Padding(10);
+            this.lblRestartGif.Name = "lblRestartGif";
+            this.lblRestartGif.Size = new System.Drawing.Size(40, 13);
+            this.lblRestartGif.TabIndex = 11;
+            this.lblRestartGif.TabStop = true;
+            this.lblRestartGif.Text = "Replay";
+            this.lblRestartGif.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.lblRestartGif.Click += new System.EventHandler(this.lblRestartGif_Click);
+            // 
+            // webBrowserGif
+            // 
+            this.webBrowserGif.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowserGif.Location = new System.Drawing.Point(127, 72);
+            this.webBrowserGif.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserGif.Name = "webBrowserGif";
+            this.webBrowserGif.Size = new System.Drawing.Size(199, 142);
+            this.webBrowserGif.TabIndex = 10;
             // 
             // cmbAlignGif
             // 
@@ -255,74 +323,6 @@
             this.btnOpenGif.UseVisualStyleBackColor = true;
             this.btnOpenGif.Click += new System.EventHandler(this.btnOpenGif_Click);
             // 
-            // webBrowser
-            // 
-            this.webBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowser.Location = new System.Drawing.Point(126, 120);
-            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(201, 183);
-            this.webBrowser.TabIndex = 8;
-            // 
-            // webBrowserGif
-            // 
-            this.webBrowserGif.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowserGif.Location = new System.Drawing.Point(127, 72);
-            this.webBrowserGif.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowserGif.Name = "webBrowserGif";
-            this.webBrowserGif.Size = new System.Drawing.Size(199, 142);
-            this.webBrowserGif.TabIndex = 10;
-            // 
-            // lblRestartGif
-            // 
-            this.lblRestartGif.AutoSize = true;
-            this.lblRestartGif.LinkColor = System.Drawing.Color.Blue;
-            this.lblRestartGif.Location = new System.Drawing.Point(134, 80);
-            this.lblRestartGif.Margin = new System.Windows.Forms.Padding(10);
-            this.lblRestartGif.Name = "lblRestartGif";
-            this.lblRestartGif.Size = new System.Drawing.Size(40, 13);
-            this.lblRestartGif.TabIndex = 11;
-            this.lblRestartGif.TabStop = true;
-            this.lblRestartGif.Text = "Replay";
-            this.lblRestartGif.VisitedLinkColor = System.Drawing.Color.Blue;
-            this.lblRestartGif.Click += new System.EventHandler(this.lblRestartGif_Click);
-            // 
-            // lblRestart
-            // 
-            this.lblRestart.AutoSize = true;
-            this.lblRestart.Location = new System.Drawing.Point(135, 143);
-            this.lblRestart.Margin = new System.Windows.Forms.Padding(10);
-            this.lblRestart.Name = "lblRestart";
-            this.lblRestart.Size = new System.Drawing.Size(40, 13);
-            this.lblRestart.TabIndex = 12;
-            this.lblRestart.TabStop = true;
-            this.lblRestart.Text = "Replay";
-            this.lblRestart.Click += new System.EventHandler(this.lblRestart_Click);
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox.Image = global::SpritePacker.Resource.help;
-            this.pictureBox.Location = new System.Drawing.Point(2, 136);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(118, 120);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox.TabIndex = 13;
-            this.pictureBox.TabStop = false;
-            // 
-            // pictureBoxGif
-            // 
-            this.pictureBoxGif.Location = new System.Drawing.Point(2, 111);
-            this.pictureBoxGif.Name = "pictureBoxGif";
-            this.pictureBoxGif.Size = new System.Drawing.Size(120, 103);
-            this.pictureBoxGif.TabIndex = 14;
-            this.pictureBoxGif.TabStop = false;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -336,9 +336,9 @@
             this.tabControl.ResumeLayout(false);
             this.tabPageImage.ResumeLayout(false);
             this.tabPageImage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.tabPageGIF.ResumeLayout(false);
             this.tabPageGIF.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGif)).EndInit();
             this.ResumeLayout(false);
 

@@ -15,8 +15,10 @@ namespace SpritePacker
 {
     public partial class frmMain : Form
     {
-        public List<Image> frames = new List<Image>();
-        public string gifPath;
+        private List<Image> frames = new List<Image>();
+        private string gifPath;
+
+        private const int NUM_ROWS = 4;
 
         public frmMain()
         {
@@ -101,7 +103,7 @@ namespace SpritePacker
                         finalSprite = VerticalAlign(frames);
                         break;
                     case 2:
-
+                        finalSprite = BoxHorizontalAlign(frames);
                         break;
                     default:
                         finalSprite = HorizontalAlign(frames);
@@ -155,19 +157,16 @@ namespace SpritePacker
 
         private Bitmap HorizontalAlign(List<Image> frames)
         {
-            int origWidht = frames[0].Width;
-            int origHeight = frames[0].Height;
+            int finalWidht = frames[0].Width * frames.Count();
 
-            int finalWidht = origWidht * frames.Count();
-
-            Bitmap sprite = new Bitmap(finalWidht, origHeight);
+            Bitmap sprite = new Bitmap(finalWidht, frames[0].Height);
 
             using (Graphics g = Graphics.FromImage(sprite))
             {
-                g.Clear(Color.Black);
+                g.Clear(Color.Transparent);
                 for (int i = 0; i < frames.Count(); i++)
                 {
-                    g.DrawImage(frames[i], new Point(origWidht * i, 0));
+                    g.DrawImage(frames[i], new Point(frames[0].Width * i, 0));
                 }
             }
 
@@ -181,19 +180,53 @@ namespace SpritePacker
 
         private Bitmap VerticalAlign(List<Image> frames)
         {
-            int origWidht = frames[0].Width;
-            int origHeight = frames[0].Height;
+            int finalHeight = frames[0].Height * frames.Count();
 
-            int finalHeight = origHeight * frames.Count();
-
-            Bitmap sprite = new Bitmap(origWidht, finalHeight);
+            Bitmap sprite = new Bitmap(frames[0].Width, finalHeight);
 
             using (Graphics g = Graphics.FromImage(sprite))
             {
-                g.Clear(Color.Black);
+                g.Clear(Color.Transparent);
                 for (int i = 0; i < frames.Count(); i++)
                 {
-                    g.DrawImage(frames[i], new Point(0, origHeight * i));
+                    g.DrawImage(frames[i], new Point(0, frames[0].Height * i));
+                }
+            }
+
+            foreach (Image frame in frames)
+            {
+                frame.Dispose();
+            }
+
+            return sprite;
+        }
+
+        private Bitmap BoxHorizontalAlign(List<Image> frames)
+        {
+            int origWidht = frames[0].Width;
+            int origHeight = frames[0].Height;
+
+            int finalWidth = origWidht * NUM_ROWS;
+            int finalHeight = origHeight * ((frames.Count() / NUM_ROWS) + 1);
+
+            Bitmap sprite = new Bitmap(finalWidth, finalHeight);
+
+            using (Graphics g = Graphics.FromImage(sprite))
+            {
+                g.Clear(Color.Transparent);
+
+                int cur = 0;
+                for (int n = 0; n <= frames.Count() / NUM_ROWS; n++)
+                {
+                    for (int m = 0; m < NUM_ROWS; m++)
+                    {
+                        try
+                        {
+                            g.DrawImage(frames[cur], new Point(m * origWidht, n * origHeight));
+                            cur++;
+                        }
+                        catch{break;}
+                    }
                 }
             }
 
