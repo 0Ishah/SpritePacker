@@ -28,33 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnOpen = new System.Windows.Forms.Button();
             this.openDialog = new System.Windows.Forms.OpenFileDialog();
             this.cmbAlign = new System.Windows.Forms.ComboBox();
-            this.lviewFrames = new System.Windows.Forms.ListView();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnConvert = new System.Windows.Forms.Button();
             this.lblHelp = new System.Windows.Forms.LinkLabel();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageImage = new System.Windows.Forms.TabPage();
+            this.previewGroup = new System.Windows.Forms.FlowLayoutPanel();
+            this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
             this.pictureBoxHelp = new System.Windows.Forms.PictureBox();
             this.tabPageGIF = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBoxGif = new System.Windows.Forms.PictureBox();
             this.cmbAlignGif = new System.Windows.Forms.ComboBox();
             this.lblHelpGif = new System.Windows.Forms.LinkLabel();
             this.btnConvertGif = new System.Windows.Forms.Button();
             this.lblGifLocation = new System.Windows.Forms.Label();
             this.btnOpenGif = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
+            this.tmrFrameUpdate = new System.Windows.Forms.Timer(this.components);
             this.tabControl.SuspendLayout();
             this.tabPageImage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHelp)).BeginInit();
             this.tabPageGIF.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGif)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGif)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOpen
@@ -87,19 +89,6 @@
             this.cmbAlign.Name = "cmbAlign";
             this.cmbAlign.Size = new System.Drawing.Size(120, 21);
             this.cmbAlign.TabIndex = 1;
-            // 
-            // lviewFrames
-            // 
-            this.lviewFrames.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lviewFrames.AutoArrange = false;
-            this.lviewFrames.Location = new System.Drawing.Point(126, 5);
-            this.lviewFrames.Margin = new System.Windows.Forms.Padding(2);
-            this.lviewFrames.Name = "lviewFrames";
-            this.lviewFrames.Size = new System.Drawing.Size(201, 109);
-            this.lviewFrames.TabIndex = 3;
-            this.lviewFrames.UseCompatibleStateImageBehavior = false;
-            this.lviewFrames.View = System.Windows.Forms.View.SmallIcon;
             // 
             // btnClear
             // 
@@ -153,15 +142,15 @@
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(337, 332);
+            this.tabControl.Size = new System.Drawing.Size(387, 332);
             this.tabControl.TabIndex = 7;
             // 
             // tabPageImage
             // 
+            this.tabPageImage.Controls.Add(this.previewGroup);
             this.tabPageImage.Controls.Add(this.pictureBoxPreview);
             this.tabPageImage.Controls.Add(this.pictureBoxHelp);
             this.tabPageImage.Controls.Add(this.btnOpen);
-            this.tabPageImage.Controls.Add(this.lviewFrames);
             this.tabPageImage.Controls.Add(this.btnConvert);
             this.tabPageImage.Controls.Add(this.lblHelp);
             this.tabPageImage.Controls.Add(this.btnClear);
@@ -169,14 +158,36 @@
             this.tabPageImage.Location = new System.Drawing.Point(4, 22);
             this.tabPageImage.Name = "tabPageImage";
             this.tabPageImage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageImage.Size = new System.Drawing.Size(329, 306);
+            this.tabPageImage.Size = new System.Drawing.Size(379, 306);
             this.tabPageImage.TabIndex = 0;
             this.tabPageImage.Text = "Convert from images";
             this.tabPageImage.UseVisualStyleBackColor = true;
             // 
+            // previewGroup
+            // 
+            this.previewGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.previewGroup.AutoScroll = true;
+            this.previewGroup.Location = new System.Drawing.Point(125, 6);
+            this.previewGroup.Name = "previewGroup";
+            this.previewGroup.Size = new System.Drawing.Size(250, 108);
+            this.previewGroup.TabIndex = 16;
+            this.previewGroup.WrapContents = false;
+            // 
+            // pictureBoxPreview
+            // 
+            this.pictureBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxPreview.Location = new System.Drawing.Point(125, 136);
+            this.pictureBoxPreview.Name = "pictureBoxPreview";
+            this.pictureBoxPreview.Size = new System.Drawing.Size(250, 170);
+            this.pictureBoxPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxPreview.TabIndex = 15;
+            this.pictureBoxPreview.TabStop = false;
+            // 
             // pictureBoxHelp
             // 
-            this.pictureBoxHelp.Image = global::SpritePacker.Resource.help;
             this.pictureBoxHelp.Location = new System.Drawing.Point(2, 136);
             this.pictureBoxHelp.Name = "pictureBoxHelp";
             this.pictureBoxHelp.Size = new System.Drawing.Size(118, 125);
@@ -196,10 +207,18 @@
             this.tabPageGIF.Location = new System.Drawing.Point(4, 22);
             this.tabPageGIF.Name = "tabPageGIF";
             this.tabPageGIF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGIF.Size = new System.Drawing.Size(329, 306);
+            this.tabPageGIF.Size = new System.Drawing.Size(379, 306);
             this.tabPageGIF.TabIndex = 1;
             this.tabPageGIF.Text = "Convert from GIF";
             this.tabPageGIF.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(128, 72);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(199, 187);
+            this.pictureBox1.TabIndex = 15;
+            this.pictureBox1.TabStop = false;
             // 
             // pictureBoxGif
             // 
@@ -243,7 +262,7 @@
             this.btnConvertGif.Location = new System.Drawing.Point(2, 264);
             this.btnConvertGif.Margin = new System.Windows.Forms.Padding(2);
             this.btnConvertGif.Name = "btnConvertGif";
-            this.btnConvertGif.Size = new System.Drawing.Size(325, 40);
+            this.btnConvertGif.Size = new System.Drawing.Size(375, 40);
             this.btnConvertGif.TabIndex = 6;
             this.btnConvertGif.Text = "Convert!";
             this.btnConvertGif.UseVisualStyleBackColor = true;
@@ -265,51 +284,35 @@
             this.btnOpenGif.Location = new System.Drawing.Point(2, 5);
             this.btnOpenGif.Margin = new System.Windows.Forms.Padding(2);
             this.btnOpenGif.Name = "btnOpenGif";
-            this.btnOpenGif.Size = new System.Drawing.Size(325, 40);
+            this.btnOpenGif.Size = new System.Drawing.Size(375, 40);
             this.btnOpenGif.TabIndex = 1;
             this.btnOpenGif.Text = "Open GIF";
             this.btnOpenGif.UseVisualStyleBackColor = true;
             this.btnOpenGif.Click += new System.EventHandler(this.btnOpenGif_Click);
             // 
-            // pictureBox1
+            // tmrFrameUpdate
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(128, 72);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(199, 187);
-            this.pictureBox1.TabIndex = 15;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pictureBoxPreview
-            // 
-            this.pictureBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxPreview.Location = new System.Drawing.Point(126, 136);
-            this.pictureBoxPreview.Name = "pictureBoxPreview";
-            this.pictureBoxPreview.Size = new System.Drawing.Size(200, 170);
-            this.pictureBoxPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxPreview.TabIndex = 15;
-            this.pictureBoxPreview.TabStop = false;
+            this.tmrFrameUpdate.Interval = 200;
+            this.tmrFrameUpdate.Tick += new System.EventHandler(this.tmrFrameUpdate_Tick);
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(334, 331);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(384, 331);
             this.Controls.Add(this.tabControl);
-            this.MinimumSize = new System.Drawing.Size(350, 370);
+            this.MinimumSize = new System.Drawing.Size(400, 370);
             this.Name = "frmMain";
             this.Text = "Sprite Packer";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.tabControl.ResumeLayout(false);
             this.tabPageImage.ResumeLayout(false);
             this.tabPageImage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHelp)).EndInit();
             this.tabPageGIF.ResumeLayout(false);
             this.tabPageGIF.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGif)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGif)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -319,7 +322,6 @@
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.OpenFileDialog openDialog;
         private System.Windows.Forms.ComboBox cmbAlign;
-        private System.Windows.Forms.ListView lviewFrames;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnConvert;
         private System.Windows.Forms.LinkLabel lblHelp;
@@ -336,6 +338,8 @@
         private System.Windows.Forms.PictureBox pictureBoxGif;
         private System.Windows.Forms.PictureBox pictureBoxPreview;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.FlowLayoutPanel previewGroup;
+        private System.Windows.Forms.Timer tmrFrameUpdate;
     }
 }
 

@@ -31,6 +31,10 @@ namespace SpritePacker
             cmbAlignGif.SelectedIndex = 0;
             pictureBoxHelp.Visible = false;
             pictureBoxGif.Visible = false;
+            previewGroup.VerticalScroll.Visible = false;
+            previewGroup.VerticalScroll.Enabled = false;
+            previewGroup.HorizontalScroll.Enabled = true;
+            previewGroup.HorizontalScroll.Visible = true;
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -44,10 +48,32 @@ namespace SpritePacker
                     frames.Add(Image.FromFile(path));
                 }
 
-                foreach (string path in framePaths)
+                for (int i = 0; i < frames.Count; i++)
                 {
-                    lviewFrames.Items.Add(path);
+                    PictureBox tempPic = new PictureBox()
+                    {
+                        Margin = new Padding(0, 0, 2, 0),
+                        Size = new Size(85, 85),
+                        SizeMode = PictureBoxSizeMode.Zoom,
+                        Image = frames[i]
+                    };
+
+                    Label tempLbl = new Label()
+                    {
+                        Text = "sample",
+                        Location = new Point(0, 72)
+                        
+                    };
+
+                    tempPic.BringToFront();
+                    tempLbl.BringToFront();
+                    tempPic.Controls.Add(tempLbl);
+                    previewGroup.Controls.Add(tempPic);
                 }
+
+                curFrame = 0;
+                pictureBoxPreview.Image = frames[curFrame];
+                tmrFrameUpdate.Start();
             }
         }
 
@@ -59,7 +85,10 @@ namespace SpritePacker
                 if (clearCheck == DialogResult.Yes)
                 {
                     frames.Clear();
-                    lviewFrames.Clear();
+                    previewGroup.Controls.Clear();
+                    previewGroup.ResetText();
+                    pictureBoxPreview.Image = null;
+                    tmrFrameUpdate.Stop();
                 }
             }
         }
@@ -96,11 +125,22 @@ namespace SpritePacker
             }
         }
 
-        private void lblRestart_Click(object sender, EventArgs e)
+        private int curFrame = 1;
+        private void tmrFrameUpdate_Tick(object sender, EventArgs e)
         {
-
+            curFrame++;
+            if (curFrame < frames.Count)
+            {
+                pictureBoxPreview.Image = frames[curFrame];
+            }
+            else
+            {
+                curFrame = 0;
+                pictureBoxPreview.Image = frames[curFrame];
+            }
+            
         }
-        
+
         private void btnOpenGif_Click(object sender, EventArgs e)
         {
 
@@ -112,11 +152,6 @@ namespace SpritePacker
         }
 
         private void lblHelpGif_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblRestartGif_Click(object sender, EventArgs e)
         {
 
         }
