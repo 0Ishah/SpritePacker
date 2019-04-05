@@ -16,7 +16,7 @@ namespace SpritePacker
     public partial class frmMain : Form
     {
         private List<Image> frames = new List<Image>();
-        private string gifPath;
+        private Bitmap spriteSheet;
 
         private const int NUM_ROWS = 4;
 
@@ -29,16 +29,13 @@ namespace SpritePacker
         {
             cmbAlign.SelectedIndex = 0;
             cmbAlignGif.SelectedIndex = 0;
-            lblRestart.Visible = false;
-            lblRestartGif.Visible = false;
-            pictureBox.Visible = false;
+            pictureBoxHelp.Visible = false;
             pictureBoxGif.Visible = false;
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            DialogResult result = openDialog.ShowDialog();
-            if (result == DialogResult.OK)
+            if (openDialog.ShowDialog() == DialogResult.OK)
             {
                 List<string> framePaths = new List<string>();
                 framePaths.AddRange(openDialog.FileNames);
@@ -47,30 +44,10 @@ namespace SpritePacker
                     frames.Add(Image.FromFile(path));
                 }
 
-                lviewFrames.Clear();
-                foreach (string frame in framePaths)
+                foreach (string path in framePaths)
                 {
-                    lviewFrames.Items.Add(frame);
+                    lviewFrames.Items.Add(path);
                 }
-
-                GifBitmapEncoder gifEncoder = new GifBitmapEncoder();
-                foreach (Bitmap frame in frames)
-                {
-                    IntPtr bmp = frame.GetHbitmap();
-                    BitmapSource src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                        bmp,
-                        IntPtr.Zero,
-                        System.Windows.Int32Rect.Empty,
-                        BitmapSizeOptions.FromEmptyOptions());
-                    gifEncoder.Frames.Add(BitmapFrame.Create(src));
-                }
-
-                using (FileStream fs = new FileStream(AppDomain.CurrentDomain.BaseDirectory + @"\tmepGif.gif", FileMode.Create))
-                {
-                    gifEncoder.Save(fs);
-                }
-                lblRestart.Visible = true;
-                webBrowser.DocumentText = "<html><head></head><body><img src='" + AppDomain.CurrentDomain.BaseDirectory + @"\tmepGif.gif" + "'/></body></html>";
             }
         }
 
@@ -83,56 +60,45 @@ namespace SpritePacker
                 {
                     frames.Clear();
                     lviewFrames.Clear();
-                    webBrowser.Navigate("about:blank");
-                    lblRestart.Visible = false;
                 }
             }
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
-            if (frames.Count != 0)
+            if (frames.Any() && saveDialog.ShowDialog() == DialogResult.OK)
             {
-                Bitmap finalSprite = new Bitmap(frames[0]);
                 switch (cmbAlign.SelectedIndex)
                 {
                     case 0:
-                        finalSprite = HorizontalAlign(frames);
+                        spriteSheet = HorizontalAlign(frames);
                         break;
                     case 1:
-                        finalSprite = VerticalAlign(frames);
+                        spriteSheet = VerticalAlign(frames);
                         break;
                     case 2:
-                        finalSprite = BoxHorizontalAlign(frames);
-                        break;
-                    default:
-                        finalSprite = HorizontalAlign(frames);
+                        spriteSheet = BoxHorizontalAlign(frames);
                         break;
                 }
-
-                if (saveDialog.ShowDialog() == DialogResult.OK)
-                {
-                    finalSprite.Save(saveDialog.FileName, ImageFormat.Png);
-                    MessageBox.Show("File saved to: " + saveDialog.FileName);
-                }
+                spriteSheet.Save(saveDialog.FileName, ImageFormat.Png);
             }
         }
 
         private void lblHelp_Click(object sender, EventArgs e)
         {
-            if (pictureBox.Visible)
+            if (pictureBoxHelp.Visible)
             {
-                pictureBox.Hide();
+                pictureBoxHelp.Hide();
             }
             else
             {
-                pictureBox.Show();
+                pictureBoxHelp.Show();
             }
         }
 
         private void lblRestart_Click(object sender, EventArgs e)
         {
-            webBrowser.Refresh();
+
         }
         
         private void btnOpenGif_Click(object sender, EventArgs e)
@@ -157,22 +123,17 @@ namespace SpritePacker
 
         private Bitmap HorizontalAlign(List<Image> frames)
         {
-            int finalWidht = frames[0].Width * frames.Count();
+            int width = frames[0].Width;
+            int height = frames[0].Height;
 
-            Bitmap sprite = new Bitmap(finalWidht, frames[0].Height);
-
+            Bitmap sprite = new Bitmap(width * frames.Count(), height);
             using (Graphics g = Graphics.FromImage(sprite))
             {
                 g.Clear(Color.Transparent);
                 for (int i = 0; i < frames.Count(); i++)
                 {
-                    g.DrawImage(frames[i], new Point(frames[0].Width * i, 0));
+                    g.DrawImageUnscaledAndClipped(frames[i], new Rectangle(width * i, 0, width, height));
                 }
-            }
-
-            foreach (Image frame in frames)
-            {
-                frame.Dispose();
             }
 
             return sprite;
@@ -180,22 +141,17 @@ namespace SpritePacker
 
         private Bitmap VerticalAlign(List<Image> frames)
         {
-            int finalHeight = frames[0].Height * frames.Count();
+            int width = frames[0].Width;
+            int height = frames[0].Height;
 
-            Bitmap sprite = new Bitmap(frames[0].Width, finalHeight);
-
+            Bitmap sprite = new Bitmap(width, height * frames.Count());
             using (Graphics g = Graphics.FromImage(sprite))
             {
                 g.Clear(Color.Transparent);
                 for (int i = 0; i < frames.Count(); i++)
                 {
-                    g.DrawImage(frames[i], new Point(0, frames[0].Height * i));
+                    g.DrawImageUnscaledAndClipped(frames[i], new Rectangle(0, height * i, width, height));
                 }
-            }
-
-            foreach (Image frame in frames)
-            {
-                frame.Dispose();
             }
 
             return sprite;
@@ -203,14 +159,10 @@ namespace SpritePacker
 
         private Bitmap BoxHorizontalAlign(List<Image> frames)
         {
-            int origWidht = frames[0].Width;
-            int origHeight = frames[0].Height;
+            int width = frames[0].Width;
+            int height = frames[0].Height;
 
-            int finalWidth = origWidht * NUM_ROWS;
-            int finalHeight = origHeight * ((frames.Count() / NUM_ROWS) + 1);
-
-            Bitmap sprite = new Bitmap(finalWidth, finalHeight);
-
+            Bitmap sprite = new Bitmap(width * NUM_ROWS, height * ((frames.Count() / NUM_ROWS) + 1));
             using (Graphics g = Graphics.FromImage(sprite))
             {
                 g.Clear(Color.Transparent);
@@ -222,7 +174,7 @@ namespace SpritePacker
                     {
                         try
                         {
-                            g.DrawImage(frames[cur], new Point(m * origWidht, n * origHeight));
+                            g.DrawImageUnscaledAndClipped(frames[cur], new Rectangle(m * width, n * height, width, height));
                             cur++;
                         }
                         catch{break;}
@@ -230,12 +182,8 @@ namespace SpritePacker
                 }
             }
 
-            foreach (Image frame in frames)
-            {
-                frame.Dispose();
-            }
-
             return sprite;
         }
     }
 }
+
