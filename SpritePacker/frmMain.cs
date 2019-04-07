@@ -6,8 +6,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Media.Imaging;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
@@ -16,7 +14,10 @@ namespace SpritePacker
     public partial class frmMain : Form
     {
         private List<Image> frames = new List<Image>();
+        private List<Image> gifFrames = new List<Image>();
+        private Image gifSpriteSheet;
         private Bitmap spriteSheet;
+        private Image gifSource;
 
         private const int NUM_ROWS = 4;
 
@@ -30,19 +31,19 @@ namespace SpritePacker
             cmbAlign.SelectedIndex = 0;
             cmbAlignGif.SelectedIndex = 0;
             pictureBoxHelp.Visible = false;
-            pictureBoxGif.Visible = false;
-            previewGroup.VerticalScroll.Visible = false;
-            previewGroup.VerticalScroll.Enabled = false;
-            previewGroup.HorizontalScroll.Enabled = true;
-            previewGroup.HorizontalScroll.Visible = true;
+            pictureBoxHelpGif.Visible = false;
+            groupPreview.VerticalScroll.Visible = false;
+            groupPreview.VerticalScroll.Enabled = false;
+            groupPreview.HorizontalScroll.Enabled = true;
+            groupPreview.HorizontalScroll.Visible = true;
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            if (openDialog.ShowDialog() == DialogResult.OK)
+            if (openFramesDialog.ShowDialog() == DialogResult.OK)
             {
                 List<string> framePaths = new List<string>();
-                framePaths.AddRange(openDialog.FileNames);
+                framePaths.AddRange(openFramesDialog.FileNames);
                 foreach (string path in framePaths)
                 {
                     frames.Add(Image.FromFile(path));
@@ -68,7 +69,7 @@ namespace SpritePacker
                     tempPic.BringToFront();
                     tempLbl.BringToFront();
                     tempPic.Controls.Add(tempLbl);
-                    previewGroup.Controls.Add(tempPic);
+                    groupPreview.Controls.Add(tempPic);
                 }
 
                 curFrame = 0;
@@ -85,8 +86,8 @@ namespace SpritePacker
                 if (clearCheck == DialogResult.Yes)
                 {
                     frames.Clear();
-                    previewGroup.Controls.Clear();
-                    previewGroup.ResetText();
+                    groupPreview.Controls.Clear();
+                    groupPreview.ResetText();
                     pictureBoxPreview.Image = null;
                     tmrFrameUpdate.Stop();
                 }
@@ -143,12 +144,59 @@ namespace SpritePacker
 
         private void btnOpenGif_Click(object sender, EventArgs e)
         {
+            if (openGifDialog.ShowDialog() == DialogResult.OK)
+            {
+                gifSource = Image.FromFile(openGifDialog.FileName);
+                lblGifLocation.Text = Path.GetFileName(openGifDialog.FileName);
+                pictureBoxPreviewGif.Image = gifSource;
 
+                int index = 0;
+                int duration = 0;
+                for (int i = 0; i < gifSource.GetFrameCount(FrameDimension.Time); i++)
+                {
+                    gifSource.SelectActiveFrame(FrameDimension.Time, i);
+                    Image frame = gifSource.Clone() as Image;
+                    gifFrames.Add(frame);
+
+                    var delay = BitConverter.ToInt32(gifSource.GetPropertyItem(20736).Value, index) * 10;
+                    duration += (delay < 100 ? 100 : delay);
+
+                    index += 4;
+                }
+
+                for (int i = 0; i < gifFrames.Count; i++)
+                {
+                    PictureBox tempPic = new PictureBox()
+                    {
+                        Margin = new Padding(0, 0, 2, 0),
+                        Size = new Size(85, 85),
+                        SizeMode = PictureBoxSizeMode.Zoom,
+                        Image = gifFrames[i]
+                    };
+                    tempPic.BringToFront();
+                    groupPreviewGifFrames.Controls.Add(tempPic);
+                }
+            }   
         }
 
         private void btnConvertGif_Click(object sender, EventArgs e)
         {
-
+            if (gifFrames.Any() && saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                switch (cmbAlignGif.SelectedIndex)
+                {
+                    case 0:
+                        spriteSheet = HorizontalAlign(gifFrames);
+                        break;
+                    case 1:
+                        spriteSheet = VerticalAlign(gifFrames);
+                        break;
+                    case 2:
+                        spriteSheet = BoxHorizontalAlign(gifFrames);
+                        break;
+                }
+                spriteSheet.Save(saveDialog.FileName, ImageFormat.Png);
+            }
         }
 
         private void lblHelpGif_Click(object sender, EventArgs e)
@@ -218,6 +266,16 @@ namespace SpritePacker
             }
 
             return sprite;
+        }
+
+        private void lblSupport_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=UCXUXFEJ2583E&item_name=Need+money+for+food&currency_code=CAD&amount=4&source=url");
+        }
+
+        private void lblSupportGif_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=UCXUXFEJ2583E&item_name=Need+money+for+food&currency_code=CAD&amount=4&source=url");
         }
     }
 }
