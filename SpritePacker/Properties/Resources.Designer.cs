@@ -59,5 +59,66 @@ namespace SpritePacker.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap e1 {
+            get {
+                object obj = ResourceManager.GetObject("e1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap e2 {
+            get {
+                object obj = ResourceManager.GetObject("e2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap e3 {
+            get {
+                object obj = ResourceManager.GetObject("e3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///	&lt;title&gt;Sprite Packer Manual&lt;/title&gt;
+        ///	&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;style.css&quot;&gt;.
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///    &lt;header&gt;
+        ///        Not my best webpage, but its good enough ヾ(-_- )ゞ &lt;br&gt;
+        ///        Here is a &lt;a href=&quot;https://github.com/9HABIBI/SpritePacker&quot;&gt;GitHub repository&lt;/a&gt; for this project if anyone is interested&lt;br&gt;&lt;br&gt;
+        ///        Thank you for using Sprite Packer. This manual will describe and show how to use all of the features in this program.
+        ///        &lt;br&gt;Please  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string manual {
+            get {
+                return ResourceManager.GetString("manual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to body{
+        ///	background-color:wheat;
+        ///}.
+        /// </summary>
+        internal static string style {
+            get {
+                return ResourceManager.GetString("style", resourceCulture);
+            }
+        }
     }
 }
