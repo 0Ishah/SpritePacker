@@ -38,6 +38,7 @@
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageImage = new System.Windows.Forms.TabPage();
+            this.lblNumFrames = new System.Windows.Forms.Label();
             this.lblNumColumns = new System.Windows.Forms.Label();
             this.numColumns = new System.Windows.Forms.NumericUpDown();
             this.numPlaySpeed = new System.Windows.Forms.NumericUpDown();
@@ -47,6 +48,9 @@
             this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
             this.pictureBoxHelp = new System.Windows.Forms.PictureBox();
             this.tabPageGIF = new System.Windows.Forms.TabPage();
+            this.lblNumFramesGif = new System.Windows.Forms.Label();
+            this.lblNumColumnsGif = new System.Windows.Forms.Label();
+            this.numColumnsGif = new System.Windows.Forms.NumericUpDown();
             this.lblAboutGif = new System.Windows.Forms.LinkLabel();
             this.lblSupportGif = new System.Windows.Forms.LinkLabel();
             this.groupPreviewGifFrames = new System.Windows.Forms.FlowLayoutPanel();
@@ -58,10 +62,6 @@
             this.btnOpenGif = new System.Windows.Forms.Button();
             this.tmrFrameUpdate = new System.Windows.Forms.Timer(this.components);
             this.openGifDialog = new System.Windows.Forms.OpenFileDialog();
-            this.lblNumColumnsGif = new System.Windows.Forms.Label();
-            this.numColumnsGif = new System.Windows.Forms.NumericUpDown();
-            this.lblNumFramesGif = new System.Windows.Forms.Label();
-            this.lblNumFrames = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numColumns)).BeginInit();
@@ -69,9 +69,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHelp)).BeginInit();
             this.tabPageGIF.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numColumnsGif)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreviewGif)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHelpGif)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numColumnsGif)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOpen
@@ -171,6 +171,15 @@
             this.tabPageImage.Text = "Convert from frames";
             this.tabPageImage.UseVisualStyleBackColor = true;
             // 
+            // lblNumFrames
+            // 
+            this.lblNumFrames.AutoSize = true;
+            this.lblNumFrames.Location = new System.Drawing.Point(122, 119);
+            this.lblNumFrames.Name = "lblNumFrames";
+            this.lblNumFrames.Size = new System.Drawing.Size(24, 13);
+            this.lblNumFrames.TabIndex = 26;
+            this.lblNumFrames.Text = "test";
+            // 
             // lblNumColumns
             // 
             this.lblNumColumns.AutoSize = true;
@@ -182,7 +191,6 @@
             // 
             // numColumns
             // 
-            this.numColumns.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.numColumns.Location = new System.Drawing.Point(87, 119);
             this.numColumns.Minimum = new decimal(new int[] {
             1,
@@ -302,6 +310,41 @@
             this.tabPageGIF.Text = "Convert from GIF";
             this.tabPageGIF.UseVisualStyleBackColor = true;
             // 
+            // lblNumFramesGif
+            // 
+            this.lblNumFramesGif.AutoSize = true;
+            this.lblNumFramesGif.Location = new System.Drawing.Point(66, 47);
+            this.lblNumFramesGif.Name = "lblNumFramesGif";
+            this.lblNumFramesGif.Size = new System.Drawing.Size(24, 13);
+            this.lblNumFramesGif.TabIndex = 25;
+            this.lblNumFramesGif.Text = "test";
+            // 
+            // lblNumColumnsGif
+            // 
+            this.lblNumColumnsGif.AutoSize = true;
+            this.lblNumColumnsGif.Location = new System.Drawing.Point(0, 90);
+            this.lblNumColumnsGif.Name = "lblNumColumnsGif";
+            this.lblNumColumnsGif.Size = new System.Drawing.Size(50, 13);
+            this.lblNumColumnsGif.TabIndex = 23;
+            this.lblNumColumnsGif.Text = "Columns:";
+            // 
+            // numColumnsGif
+            // 
+            this.numColumnsGif.Location = new System.Drawing.Point(87, 88);
+            this.numColumnsGif.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numColumnsGif.Name = "numColumnsGif";
+            this.numColumnsGif.Size = new System.Drawing.Size(35, 20);
+            this.numColumnsGif.TabIndex = 22;
+            this.numColumnsGif.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            // 
             // lblAboutGif
             // 
             this.lblAboutGif.AutoSize = true;
@@ -415,51 +458,6 @@
             this.openGifDialog.FileName = "Your gif";
             this.openGifDialog.Filter = "Gif Images|*.gif";
             // 
-            // lblNumColumnsGif
-            // 
-            this.lblNumColumnsGif.AutoSize = true;
-            this.lblNumColumnsGif.Location = new System.Drawing.Point(0, 90);
-            this.lblNumColumnsGif.Name = "lblNumColumnsGif";
-            this.lblNumColumnsGif.Size = new System.Drawing.Size(50, 13);
-            this.lblNumColumnsGif.TabIndex = 23;
-            this.lblNumColumnsGif.Text = "Columns:";
-            // 
-            // numColumnsGif
-            // 
-            this.numColumnsGif.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.numColumnsGif.Location = new System.Drawing.Point(87, 88);
-            this.numColumnsGif.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numColumnsGif.Name = "numColumnsGif";
-            this.numColumnsGif.Size = new System.Drawing.Size(35, 20);
-            this.numColumnsGif.TabIndex = 22;
-            this.numColumnsGif.Value = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            // 
-            // lblNumFramesGif
-            // 
-            this.lblNumFramesGif.AutoSize = true;
-            this.lblNumFramesGif.Location = new System.Drawing.Point(66, 47);
-            this.lblNumFramesGif.Name = "lblNumFramesGif";
-            this.lblNumFramesGif.Size = new System.Drawing.Size(24, 13);
-            this.lblNumFramesGif.TabIndex = 25;
-            this.lblNumFramesGif.Text = "test";
-            // 
-            // lblNumFrames
-            // 
-            this.lblNumFrames.AutoSize = true;
-            this.lblNumFrames.Location = new System.Drawing.Point(122, 119);
-            this.lblNumFrames.Name = "lblNumFrames";
-            this.lblNumFrames.Size = new System.Drawing.Size(24, 13);
-            this.lblNumFrames.TabIndex = 26;
-            this.lblNumFrames.Text = "test";
-            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -480,9 +478,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHelp)).EndInit();
             this.tabPageGIF.ResumeLayout(false);
             this.tabPageGIF.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numColumnsGif)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreviewGif)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHelpGif)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numColumnsGif)).EndInit();
             this.ResumeLayout(false);
 
         }
